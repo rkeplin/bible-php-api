@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="./bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         verbose="true"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false">
+    <testsuites>
+        <testsuite name="Unit Tests">
+            <directory>unit</directory>
+        </testsuite>
+        <testsuite name="Integration Tests">
+            <directory>integration</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../app/src/Controller</directory>
+            <directory suffix=".php">../app/src/Domain</directory>
+            <directory suffix=".php">../app/library</directory>
+        </whitelist>
+    </filter>
+</phpunit>

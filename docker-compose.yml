@@ -1,0 +1,47 @@
+version: '3'
+services:
+  bible-ui:
+    image: rkeplin/bible-angularjs-ui:latest
+    restart: always
+    ports:
+      - 8082:80
+    networks:
+      - net1
+
+  php-api:
+    image: rkeplin/bible-php-api:latest
+    restart: always
+    ports:
+      - 8083:80
+    depends_on:
+      - bible-db
+    environment:
+      - SERVER_ADMIN=${SERVER_ADMIN}
+      - APP_ENV=${BIBLE_APP_ENV}
+      - DB_NAME=${BIBLE_DB_NAME}
+      - DB_HOST=${BIBLE_DB_HOST}
+      - DB_USER=${BIBLE_DB_USER}
+      - DB_PASS=${BIBLE_DB_PASS}
+    volumes:
+      - .:/var/www/html
+    networks:
+      - net1
+
+  bible-db:
+    image: rkeplin/bible-mariadb:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${BIBLE_DB_ROOT_PASS}
+      - MYSQL_USER=${BIBLE_DB_USER}
+      - MYSQL_PASSWORD=${BIBLE_DB_PASS}
+      - MYSQL_DATABASE=${BIBLE_DB_NAME}
+    volumes:
+      - bible-db:/var/lib/mysql
+    networks:
+      - net1
+
+volumes:
+  bible-db:
+
+networks:
+  net1:
