@@ -13,3 +13,6 @@ before_install:
 script:
   - docker-compose up -d
   - docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit"
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

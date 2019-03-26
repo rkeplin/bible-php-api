@@ -1,0 +1,4 @@
+ignore:
+  - "library"
+  - "public"
+  - "tests"
