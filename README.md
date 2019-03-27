@@ -12,7 +12,6 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 * Bible in Basic English (BBE)
 * Darby English Bible (DARBY)
 * King James Version (KJV)
-* Webster's Bible (WBT)
 * World English Bible (WEB)
 * Young's Literal Translation (YLT)
 
