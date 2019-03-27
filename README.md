@@ -4,7 +4,6 @@
 [![codecov](https://codecov.io/gh/rkeplin/bible-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/rkeplin/bible-php-api)
 
 Bible PHP API is an open source REST API.  It contains multiple translations of The Holy Bible, as well as cross-references. 
-All of the data was gathered from the MySQL database found [here](https://github.com/scrollmapper/bible_databases).
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
 
 ### Included Translations
@@ -65,6 +64,9 @@ docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit"
 * [Bible PHP API](https://www.github.com/rkeplin/bible-php-api)
 * [Bible AngularJS UI](https://www.github.com/rkeplin/bible-angularjs-ui)
 * [Bible MariaDB Docker Image](https://www.github.com/rkeplin/bible-mariadb)
+
+### Credits
+All of the data was gathered from the MySQL database found [here](https://github.com/scrollmapper/bible_databases).
 
 ### License
 This program is free software: you can redistribute it and/or modify

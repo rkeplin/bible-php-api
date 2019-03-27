@@ -12,7 +12,11 @@ before_install:
 
 script:
   - docker-compose up -d
-  - docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit --coverage-clover=coverage.xml"
+  - docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit --coverage-clover=coverage/coverage.xml"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  - docker build -t bible-php-api .
+  - docker tag bible-php-api rkeplin/bible-php-api:latest
+  - docker push rkeplin/bible-php-api:latest
