@@ -59,6 +59,21 @@ class TranslationFactory
             case 'ylt':
                 $table = 't_ylt';
                 break;
+            case 8:
+            case 't_esv':
+            case 'esv':
+                $table = 't_esv';
+                break;
+            case 9:
+            case 't_niv':
+            case 'niv':
+                $table = 't_niv';
+                break;
+            case 10:
+            case 't_nlt':
+            case 'nlt':
+                $table = 't_nlt';
+                break;
 
         }
 

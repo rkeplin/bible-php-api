@@ -13,6 +13,9 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 * King James Version (KJV)
 * World English Bible (WEB)
 * Young's Literal Translation (YLT)
+* English Standard Version (ESV)
+* New International Version (NIV)
+* New Living Translation (NLT)
 
 ### Live Demo
 A live demo of this application can be viewed [here](https://bible-ui.rkeplin.com/api/v1/books/1/chapters/1).

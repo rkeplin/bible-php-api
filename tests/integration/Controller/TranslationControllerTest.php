@@ -24,7 +24,7 @@ class TranslationControllerTest extends IntegrationTestCase
 
         $content = $response->getContent()->getItems();
 
-        $this->assertCount(6, $content);
+        $this->assertCount(9, $content);
         $this->assertEquals('ASV', $content[0]['abbreviation']);
     }
 
