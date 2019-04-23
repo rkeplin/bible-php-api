@@ -18,7 +18,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 * New Living Translation (NLT)
 
 ### Live Demo
-A live demo of this application can be viewed [here](https://bible-ui.rkeplin.com/api/v1/books/1/chapters/1).
+A live demo of this application can be viewed [here](https://bible-php-api.rkeplin.com/v1/books/1/chapters/1).
 
 ### Getting Everything Running
 ```bash
@@ -69,7 +69,9 @@ docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit"
 * [Bible MariaDB Docker Image](https://www.github.com/rkeplin/bible-mariadb)
 
 ### Credits
-All of the data was gathered from the MySQL database found [here](https://github.com/scrollmapper/bible_databases).
+Data for this application was gathered from the following repositories.
+* [scrollmaper/bible_database](https://github.com/scrollmapper/bible_databases)
+* [honza/bibles](https://github.com/honza/bibles)
 
 ### License
 This program is free software: you can redistribute it and/or modify
