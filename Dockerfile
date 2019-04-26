@@ -11,6 +11,7 @@ RUN mv phpunit-8.0.5.phar /usr/local/bin/phpunit
 RUN sed -i 's/;date.timezone =/date.timezone = "America\/New_York"/g' /etc/php.ini
 
 RUN echo "ServerName localhost" >> /etc/httpd/conf/httpd.conf
+RUN sed -i 's/LogFormat "%h/LogFormat "%{X-Forwarded-For}i %h/g' /etc/httpd/conf/httpd.conf
 RUN apachectl configtest
 
 RUN mkdir /run/php-fpm
