@@ -5,6 +5,9 @@ services:
     restart: always
     ports:
       - 8082:80
+    environment:
+      - URL=${URL}
+      - API_URL=${API_URL}
     networks:
       - net1
 
@@ -16,6 +19,7 @@ services:
     depends_on:
       - bible-db
     environment:
+      - ALLOW_ORIGIN=${ALLOW_ORIGIN}
       - SERVER_ADMIN=${SERVER_ADMIN}
       - APP_ENV=${BIBLE_APP_ENV}
       - DB_NAME=${BIBLE_DB_NAME}
