@@ -44,6 +44,15 @@ services:
     networks:
       - net1
 
+  bible-es:
+    image: rkeplin/bible-es:latest
+    restart: always
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    networks:
+      - net1
+
 volumes:
   bible-db:
 
