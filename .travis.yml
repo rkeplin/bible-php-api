@@ -15,5 +15,15 @@ script:
   - make test
 
 after_success:
-  - curl -XPOST https://cloud.docker.com/api/build/v1/source/d827a185-1078-4562-acd3-06ea9e0c6eb1/trigger/${DOCKER_HUB_TRIGGER_TOKEN}/call/
+  - docker build -t rkeplin/bible-php-api:$TRAVIS_BUILD_ID .
+  - docker build -t rkeplin/bible-php-api:latest .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push rkeplin/bible-php-api:$TRAVIS_BUILD_ID
+  - docker push rkeplin/bible-php-api:latest
   - bash <(curl -s https://codecov.io/bash)
+
+deploy:
+  provider: script
+  script: bash $(pwd)/.deploy/deploy.sh
+  on:
+    branch: master
