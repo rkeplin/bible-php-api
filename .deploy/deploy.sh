@@ -1,5 +1,5 @@
 #!/bin/bash
-openssl aes-256-cbc -K $encrypted_42099b4af021_key -iv $encrypted_42099b4af021_iv -in $(pwd)/.deploy/travis_id_rsa.enc -out $(pwd)/.deploy/travis_id_rsa -d
+openssl aes-256-cbc -K $encrypted_532cd7f1946c_key -iv $encrypted_532cd7f1946c_iv -in $(pwd)/.deploy/travis_id_rsa.enc -out $(pwd)/.deploy/travis_id_rsa -d
 
 chmod 0400 $(pwd)/.deploy/travis_id_rsa
 
