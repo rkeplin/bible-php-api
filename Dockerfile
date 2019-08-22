@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:30
 
 RUN dnf -y update \
  && dnf -y install httpd php php-common php-pdo php-hash php-mbstring php-apc php-gd php-mysqlnd php-json php-dom php-xdebug mysql npm at wget \
