@@ -14,12 +14,12 @@ function xmlDecorator ($inner, $node)
     return $xml;
 }
 
-function sitemapDecorator ($url, $date)
+function sitemapDecorator ($url, $date, $node)
 {
-    $xml = "\t" . '<sitemap>' . "\n"
+    $xml = "\t" . '<' . $node . '>' . "\n"
          . "\t\t" . '<loc>' . $url . '</loc>' . "\n"
          . "\t\t" . '<lastmod>' . $date . '</lastmod>' . "\n"
-         . "\t" . '</sitemap>' . "\n";
+         . "\t" . '</' . $node . '>' . "\n";
 
     return $xml;
 }
@@ -69,7 +69,7 @@ if (!is_dir($sitemapDir)) {
 
 foreach ($books as $book) {
     $url = getSitemapUrl($book);
-    $xml .= sitemapDecorator($url, $date);
+    $xml .= sitemapDecorator($url, $date, 'sitemap');
 
     $wrapped = '';
     $bookXml = '';
@@ -79,7 +79,7 @@ foreach ($books as $book) {
 
     foreach ($chapters as $chapter) {
         $url = getUrl($book, $chapter->id);
-        $bookXml .= sitemapDecorator($url, $date);
+        $bookXml .= sitemapDecorator($url, $date, 'url');
     }
 
     $wrapped .= xmlDecorator($bookXml, 'urlset');
