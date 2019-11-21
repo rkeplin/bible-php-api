@@ -105,7 +105,7 @@ foreach ($translations as $table => $index) {
     /* Insert docs */
     $textMapper->setTable($table);
 
-    for ($i = 1; $i < 66; $i++) {
+    for ($i = 1; $i <= 66; $i++) {
         $chapters = $bookMapper->findChapters($i);
 
         foreach ($chapters as $chapter) {
