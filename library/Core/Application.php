@@ -3,7 +3,10 @@ namespace Core;
 
 use Controller\ErrorController;
 use Core\Domain\Mapper\AbstractMapper;
+use Core\Domain\Mapper\AbstractMongoMapper;
+use Core\Domain\Service\SessionService;
 use Core\Http\HttpNotFoundException;
+use MongoDB\Client;
 use PDO;
 use Exception;
 
@@ -30,9 +33,28 @@ class Application
     {
         self::$config = $config;
 
-        if(isset($config['mysql']['db_host'])) {
+        if ($config['environment'] !== 'production') {
+            error_reporting(E_ALL);
+            ini_set('display_errors', 1);
+        }
+
+        if(isset($config['mysql'], $config['mysql']['db_host'])) {
             $db = new PDO("mysql:host={$config['mysql']['db_host']};dbname={$config['mysql']['db_name']}", $config['mysql']['db_user'], $config['mysql']['db_pass']);
             AbstractMapper::setDefaultDb($db);
+        }
+
+        if (isset($config['mongo'], $config['mongo']['host'])) {
+            $client = new Client(sprintf('mongodb://%s:27017', $config['mongo']['host']), array(
+                'username' => $config['mongo']['user'],
+                'password' => $config['mongo']['pass'],
+            ));
+            AbstractMongoMapper::setDefaultClient($client);
+        }
+
+        if (isset($config['session'])) {
+            if (isset($config['session']['name'])) {
+                SessionService::setDefaultSessionName($config['session']['name']);
+            }
         }
     }
 
@@ -58,9 +80,15 @@ class Application
         $routeFound = false;
 
         $routeParams = array();
+        $httpMethod = strtoupper($_SERVER['REQUEST_METHOD']);
 
-        foreach ($routes as $route => $options) {
+        foreach ($routes as $route => $routeOptions) {
             if (preg_match('/^' . str_replace('/', '\/', $route) . '$/', $url, $matches)) {
+                if (!isset($routeOptions[$httpMethod])) {
+                    throw new HttpNotFoundException('Page not found.');
+                }
+
+                $options = $routeOptions[$httpMethod];
 
                 if (isset($options[2]) && is_array($options[2])) {
                     foreach ($options[2] as $index => $routeKey) {
@@ -88,8 +116,14 @@ class Application
         if(class_exists($controller)) {
             $controller = new $controller();
             $controller->setPost($_POST);
-            $controller->setRouteParams($routeParams);
             $controller->setParams($_GET);
+            $controller->setRouteParams($routeParams);
+
+            $json = json_decode(file_get_contents('php://input'), true);
+
+            if (is_array($json)) {
+                $controller->setJson($json);
+            }
 
             if(method_exists($controller, $action)) {
                 $response = $controller->$action();
@@ -113,13 +147,7 @@ class Application
     public function displayError(Exception $e)
     {
         $controller = new ErrorController();
-        $vars = $controller->indexAction($e);
-
-        $script_folder = APP_PATH . 'views' . DS;
-        $script = 'error/index.php';
-
-        $view = new View($script_folder);
-        $view->setVars($vars);
-        $view->render($script);
+        $response = $controller->indexAction($e);
+        $response->send();
     }
 }

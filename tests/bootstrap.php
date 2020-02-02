@@ -24,3 +24,6 @@ $loader = new Autoload(array(
     SRC_PATH,
     TEST_HELPER_PATH
 ));
+
+/* Include composer autoloader */
+require __DIR__ . '/../vendor/autoload.php';

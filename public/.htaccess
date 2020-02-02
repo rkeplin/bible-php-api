@@ -1,6 +1,6 @@
 AddDefaultCharset UTF-8
 
-Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Origin "http://bible-ui.rkeplin.local"
 Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Cache-Control"
 Header add Access-Control-Allow-Methods "GET, OPTIONS"
 

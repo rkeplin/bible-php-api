@@ -1,8 +1,16 @@
 FROM fedora:30
 
 RUN dnf -y update \
- && dnf -y install httpd php php-common php-pdo php-hash php-mbstring php-apc php-gd php-mysqlnd php-json php-dom php-xdebug mysql npm at wget \
+ && dnf -y install httpd php php-common php-pdo php-hash php-mbstring php-apc php-gd php-mysqlnd php-json php-dom php-xdebug php-redis mysql npm at wget \
+ && dnf -y install php-pear php-devel curl make \
  && dnf clean all
+
+RUN pecl install mongodb
+RUN echo "extension=mongodb.so" > /etc/php.d/30-mongodb.ini
+
+RUN curl -sS https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
 
 RUN wget https://phar.phpunit.de/phpunit-8.0.5.phar
 RUN chmod +x phpunit-8.0.5.phar
@@ -30,6 +38,7 @@ WORKDIR /var/www/html
 COPY app app
 COPY library library
 COPY public public
+COPY vendor vendor
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

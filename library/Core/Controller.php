@@ -1,6 +1,8 @@
 <?php
 namespace Core;
 
+use Core\Http\HttpBadRequestException;
+
 /**
  * Core MVC Framework.
  *
@@ -13,6 +15,11 @@ abstract class Controller
      * @var array
      **/
     protected $_post_data;
+
+    /**
+     * @var array
+     */
+    protected $_json_data;
 
     /**
      * @var array
@@ -161,6 +168,52 @@ abstract class Controller
         }
 
         return (count($this->_get_data) > 0);
+    }
+
+    /**
+     * Get a json value.
+     *
+     * @json string $key
+     * @return string|array
+     **/
+    protected function _getJson($key = null)
+    {
+        if(!$key) {
+            return $this->_json_data;
+        }
+
+        return $this->_json_data[$key];
+    }
+
+    /**
+     * Checks if a json value is set.
+     *
+     * @param string $key
+     * @return boolean
+     **/
+    protected function _hasJson($key = null)
+    {
+        if(null != $key) {
+            return isset($this->_json_data[$key]);
+        }
+
+        return (count($this->_json_data) > 0);
+    }
+
+    /**
+     * @param array $data
+     * @return $this
+     * @throws HttpBadRequestException
+     */
+    public function setJson($data = array())
+    {
+        if (!is_array($data)) {
+            throw new HttpBadRequestException('Must be an array');
+        }
+
+        $this->_json_data = $data;
+
+        return $this;
     }
 
 }
