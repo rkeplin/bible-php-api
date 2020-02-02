@@ -1,6 +1,5 @@
 <?php
 include '../app/bootstrap.php';
-
 use Core\Application;
 
 $config = include APP_PATH . 'configs' . DS . 'default.php';

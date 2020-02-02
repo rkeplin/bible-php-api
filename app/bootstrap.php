@@ -28,3 +28,6 @@ $loader = new Autoload(array(
     LIB_PATH,
     SRC_PATH
 ));
+
+/* Include composer autoloader */
+require __DIR__ . '/../vendor/autoload.php';

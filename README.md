@@ -1,5 +1,4 @@
 # Bible PHP API
-
 [![Build Status](https://travis-ci.org/rkeplin/bible-php-api.svg?branch=master)](https://travis-ci.org/rkeplin/bible-php-api)
 [![codecov](https://codecov.io/gh/rkeplin/bible-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/rkeplin/bible-php-api)
 
@@ -47,9 +46,54 @@ Note: In order to get content for a specific translation, supply `translation` a
 GET http://localhost:8083/verse/[VerseID]/relations 
 ```
 
+#### Registering
+```bash
+curl -XPOST -H "Content-Type: application/json" -d '{"email":"something@example.com", "password":"something", "passwordConf": "something"}' http://localhost:8083/register
+```
+
+#### Authenticating
+```bash
+# Logging in
+curl -XPOST -H "Content-Type: application/json" -d '{"email":"something@example.com", "password":"something"}' http://localhost:8083/authenticate
+ 
+# Logging out
+curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/authenticate/logout
+ 
+# Getting current user information
+curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/authenticate/me
+```
+
+#### Managing lists
+Registered users may create a list of verses
+```bash
+# Getting my lists
+curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/lists
+ 
+# Creating a list
+curl -XPOST -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" -d '{"name": "test list"}' http://localhost:8083/lists
+ 
+# Getting a specific list
+curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/[ListID]
+ 
+# Updating a specific list 
+curl -XPUT -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" -d '{"name": "test list updated"}' http://localhost:8083/lists/[ListID]
+ 
+# Deleting a list
+curl -XDELETE -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/[ListID]
+ 
+# Get the verses on a list
+curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" 127.0.0.1:8083/lists/[ListID]/verses
+ 
+# Add a verse to a list
+curl -XPUT -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" 127.0.0.1:8083/lists/[ListID]/verses/[VerseID]
+ 
+# Remove a verse from a list
+curl -XDELETE -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" 127.0.0.1:8083/lists/[ListID]/verses/[VerseID]
+```
+
 ### Running The Test Suite
 ```bash
-docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit"
+make test
 ```
 
 ### Related Projects

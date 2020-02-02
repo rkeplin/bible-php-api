@@ -13,6 +13,7 @@ services:
 
   php-api:
     image: rkeplin/bible-php-api:latest
+    #build: .
     restart: always
     ports:
       - 8083:80
@@ -22,12 +23,33 @@ services:
       - ALLOW_ORIGIN=${ALLOW_ORIGIN}
       - SERVER_ADMIN=${SERVER_ADMIN}
       - APP_ENV=${BIBLE_APP_ENV}
+      - REDIS_SERVER=${REDIS_SERVER}
       - DB_NAME=${BIBLE_DB_NAME}
       - DB_HOST=${BIBLE_DB_HOST}
       - DB_USER=${BIBLE_DB_USER}
       - DB_PASS=${BIBLE_DB_PASS}
+      - MONGO_HOST=mongo
+      - MONGO_DB=${MONGO_DB}
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASS=${MONGO_PASS}
     volumes:
       - .:/var/www/html
+    networks:
+      - net1
+
+  go-api:
+    image: rkeplin/bible-go-api:latest
+    ports:
+      - 8084:3000
+    environment:
+      - ES_URL=${ES_URL}
+      - DB_NAME=${BIBLE_DB_NAME}
+      - DB_HOST=${BIBLE_DB_HOST}
+      - DB_USER=${BIBLE_DB_USER}
+      - DB_PASS=${BIBLE_DB_PASS}
+    depends_on:
+      - bible-db
+      - bible-es
     networks:
       - net1
 
@@ -49,12 +71,34 @@ services:
     restart: always
     environment:
       - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    networks:
+      - net1
+
+  mongo:
+    image: mongo:4.2.2-bionic
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_DATABASE=${MONGO_DB}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
+    volumes:
+      - mongo-db:/data/db
+    networks:
+      - net1
+
+  redis:
+    image: redis:5.0.7
+    restart: always
     networks:
       - net1
 
 volumes:
   bible-db:
+  mongo-db:
+  redis:
 
 networks:
   net1:
