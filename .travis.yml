@@ -12,6 +12,7 @@ before_install:
  - sudo mv docker-compose /usr/local/bin
 
 script:
+  - make build
   - make up
   - make test
 

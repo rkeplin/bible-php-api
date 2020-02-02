@@ -12,8 +12,8 @@ services:
       - net1
 
   php-api:
-    image: rkeplin/bible-php-api:latest
-    #build: .
+    # image: rkeplin/bible-php-api:latest
+    build: .
     restart: always
     ports:
       - 8083:80
