@@ -1,8 +1,9 @@
 AddDefaultCharset UTF-8
 
 Header set Access-Control-Allow-Origin "http://bible-ui.rkeplin.local"
+Header set Access-Control-Allow-Credentials true
 Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Cache-Control"
-Header add Access-Control-Allow-Methods "GET, OPTIONS"
+Header add Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
 
 <IfModule mod_rewrite.c>
     RewriteEngine On

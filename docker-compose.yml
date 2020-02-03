@@ -19,15 +19,17 @@ services:
       - 8083:80
     depends_on:
       - bible-db
+      - mongo
+      - redis
     environment:
       - ALLOW_ORIGIN=${ALLOW_ORIGIN}
       - SERVER_ADMIN=${SERVER_ADMIN}
       - APP_ENV=${BIBLE_APP_ENV}
-      - REDIS_SERVER=${REDIS_SERVER}
       - DB_NAME=${BIBLE_DB_NAME}
       - DB_HOST=${BIBLE_DB_HOST}
       - DB_USER=${BIBLE_DB_USER}
       - DB_PASS=${BIBLE_DB_PASS}
+      - REDIS_SERVER=${REDIS_SERVER}
       - MONGO_HOST=mongo
       - MONGO_DB=${MONGO_DB}
       - MONGO_USER=${MONGO_USER}
