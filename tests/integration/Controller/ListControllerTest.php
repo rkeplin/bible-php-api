@@ -121,6 +121,72 @@ class ListControllerTest extends IntegrationTestCase
         $this->assertEquals('test', $content['name']);
     }
 
+    public function testPutVerseAction()
+    {
+        $this->_register();
+        $this->_login();
+        $listId = $this->_create('test a');
+
+        $this->_putVerse($listId, 1001001);
+        $this->_putVerse($listId, 1001002);
+        $this->_putVerse($listId, 1001003);
+    }
+
+    public function testGetAllVersesAction()
+    {
+        $this->_register();
+        $this->_login();
+        $listId = $this->_create('test a');
+
+        $this->_putVerse($listId, 1001001);
+        $this->_putVerse($listId, 1001002);
+        $this->_putVerse($listId, 1001003);
+
+        $controller = new ListController();
+        $controller->setRouteParams(array(
+            'listId' => $listId
+        ));
+        $response = $controller->getAllVersesAction();
+
+        $this->assertEquals(200, $response->getCode());
+        $this->assertEquals('OK', $response->getLabel());
+
+        $content = $response->getContent();
+        $this->assertCount(3, $content);
+    }
+
+    public function testDeleteVerseAction()
+    {
+        $this->_register();
+        $this->_login();
+        $listId = $this->_create('test a');
+
+        $this->_putVerse($listId, 1001001);
+        $this->_putVerse($listId, 1001002);
+        $this->_putVerse($listId, 1001003);
+
+        $controller = new ListController();
+        $controller->setRouteParams(array(
+            'listId' => $listId,
+            'verseId' => 1001003
+        ));
+        $response = $controller->deleteVerseAction();
+
+        $this->assertEquals(200, $response->getCode());
+        $this->assertEquals('OK', $response->getLabel());
+
+        /* Make sure there's only 2 now */
+        $controller->setRouteParams(array(
+            'listId' => $listId
+        ));
+        $response = $controller->getAllVersesAction();
+        $this->assertEquals(200, $response->getCode());
+        $this->assertEquals('OK', $response->getLabel());
+
+        $content = $response->getContent();
+        $this->assertCount(2, $content);
+    }
+
     protected function _register()
     {
         $controller = new UserController();
@@ -179,5 +245,21 @@ class ListControllerTest extends IntegrationTestCase
         $this->assertArrayHasKey('id', $content);
 
         return $content['id'];
+    }
+
+    protected function _putVerse($listId, $verseId)
+    {
+        $controller = new ListController();
+        $controller->setRouteParams(array(
+            'listId' => $listId,
+            'verseId' => $verseId
+        ));
+        $response = $controller->putVerseAction();
+
+        $this->assertEquals(200, $response->getCode());
+        $this->assertEquals('OK', $response->getLabel());
+
+        $content = $response->getContent();
+        $this->assertTrue($content['success']);
     }
 }
