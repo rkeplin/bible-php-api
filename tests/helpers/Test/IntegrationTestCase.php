@@ -15,7 +15,7 @@ class IntegrationTestCase extends TestCase
     /**
      * @const int
      */
-    const MAX_RETRIES = 30;
+    const MAX_RETRIES = 40;
 
     /**
      * @const int
