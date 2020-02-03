@@ -30,9 +30,6 @@ class ListControllerTest extends IntegrationTestCase
         $collection->deleteMany(array());
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testCreateAction()
     {
         $this->_register();
@@ -40,9 +37,6 @@ class ListControllerTest extends IntegrationTestCase
         $this->_create('test');
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testUpdateAction()
     {
         $this->_register();
@@ -66,9 +60,6 @@ class ListControllerTest extends IntegrationTestCase
         $this->assertEquals($id, $content['id']);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testDeleteAction()
     {
         $this->_register();
@@ -88,9 +79,6 @@ class ListControllerTest extends IntegrationTestCase
         $this->assertEquals(true, $content['success']);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testGetAllAction()
     {
         $this->_register();
@@ -113,9 +101,6 @@ class ListControllerTest extends IntegrationTestCase
         $this->assertEquals($c, $content[2]['id']);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testGetOneAction()
     {
         $this->_register();

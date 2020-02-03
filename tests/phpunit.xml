@@ -25,6 +25,7 @@
         </whitelist>
     </filter>
     <php>
+        <env name="ENVIRONMENT" value="testing" force="true" />
         <env name="MONGO_DB" value="test_app" force="true" />
     </php>
 </phpunit>

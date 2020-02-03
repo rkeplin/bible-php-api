@@ -23,20 +23,13 @@ class AuthenticateControllerTest extends IntegrationTestCase
         $collection->deleteMany(array());
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testLoginAction()
     {
-        // TODO: Fix me
-//        $this->_register();
-//        $this->_login();
+        $this->_register();
+        $this->_login();
         $this->assertTrue(true);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testLogoutAction()
     {
         $this->_register();
@@ -44,9 +37,6 @@ class AuthenticateControllerTest extends IntegrationTestCase
         $this->_logout();
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testMeAction()
     {
         $this->_register();

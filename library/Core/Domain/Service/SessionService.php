@@ -47,6 +47,10 @@ class SessionService
      */
     public function start()
     {
+        if (getenv('ENVIRONMENT') == 'testing') {
+            return;
+        }
+
         if (self::$_started) {
             return;
         }
@@ -66,10 +70,6 @@ class SessionService
      */
     public function get($id)
     {
-        if (!$this->isActive()) {
-            throw new Exception('Session is not active.  Cannot retrieve variable.');
-        }
-
         return $_SESSION[$id];
     }
 
@@ -82,10 +82,6 @@ class SessionService
      */
     public function has($id)
     {
-        if (!$this->isActive()) {
-            throw new Exception('Session is not active.  Cannot retrieve variable.');
-        }
-
         return isset($_SESSION[$id]);
     }
 
@@ -98,10 +94,6 @@ class SessionService
      */
     public function set($id, $value)
     {
-        if (!$this->isActive()) {
-            throw new Exception('Session is not active.  Cannot set variable.');
-        }
-
         $_SESSION[$id] = $value;
     }
 
@@ -112,6 +104,12 @@ class SessionService
      */
     public function destroy()
     {
+        if (getenv('ENVIRONMENT') == 'testing') {
+            $_SESSION = array();
+
+            return;
+        }
+
         if (!$this->isActive()) {
             throw new Exception('Session is not active.  Cannot be destroyed.');
         }
@@ -135,6 +133,10 @@ class SessionService
      */
     public function getId()
     {
+        if (getenv('ENVIRONMENT') == 'testing') {
+            return 123;
+        }
+
         if (!$this->isActive()) {
             throw new Exception('Session is not active.  Cannot retrieve ID.');
         }
