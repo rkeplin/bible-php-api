@@ -35,7 +35,7 @@ return array(
 
         /* Register */
         '/register' => array(
-            'POST' => array('register', 'post')
+            'POST' => array('user', 'register')
         ),
 
         /* Lists */

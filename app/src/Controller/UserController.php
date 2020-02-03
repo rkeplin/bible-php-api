@@ -3,17 +3,17 @@ namespace Controller;
 
 use Core\Controller;
 use Core\Http\Response;
-use Domain\Mapper\RegisterMapper;
+use Domain\Mapper\UserMapper;
 
 /**
- * Class RegisterController
+ * Class UserController
  *
  * @package Controller
  */
-class RegisterController extends Controller
+class UserController extends Controller
 {
     /**
-     * @var \Domain\Mapper\RegisterMapper
+     * @var \Domain\Mapper\UserMapper
      */
     protected $_mapper;
 
@@ -22,7 +22,7 @@ class RegisterController extends Controller
      * @throws \Core\Http\HttpBadRequestException
      * @throws \Exception
      */
-    public function postAction()
+    public function registerAction()
     {
         $data = $this->_getJson();
 
@@ -32,23 +32,23 @@ class RegisterController extends Controller
     }
 
     /**
-     * @return \Domain\Mapper\RegisterMapper
+     * @return \Domain\Mapper\UserMapper
      * @throws \Exception
      */
     public function getMapper()
     {
         if (null === $this->_mapper) {
-            $this->setMapper(new RegisterMapper());
+            $this->setMapper(new UserMapper());
         }
 
         return $this->_mapper;
     }
 
     /**
-     * @param \Domain\Mapper\RegisterMapper $mapper
+     * @param \Domain\Mapper\UserMapper $mapper
      * @return $this
      */
-    public function setMapper(RegisterMapper $mapper)
+    public function setMapper(UserMapper $mapper)
     {
         $this->_mapper = $mapper;
     }

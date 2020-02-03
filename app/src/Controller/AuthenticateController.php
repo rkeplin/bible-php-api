@@ -50,9 +50,9 @@ class AuthenticateController extends Controller
      **/
     public function logoutAction()
     {
-        $response = $this->getService()->logout();
+        $this->getService()->logout();
 
-        return new Response($response, 200, 'OK');
+        return new Response(array('success' => true), 200, 'OK');
     }
 
     /**
