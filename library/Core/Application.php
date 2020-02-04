@@ -82,6 +82,11 @@ class Application
         $routeParams = array();
         $httpMethod = strtoupper($_SERVER['REQUEST_METHOD']);
 
+        if ($httpMethod == 'OPTIONS') {
+            header("HTTP/1.1 200 OK");
+            die();
+        }
+
         foreach ($routes as $route => $routeOptions) {
             if (preg_match('/^' . str_replace('/', '\/', $route) . '$/', $url, $matches)) {
                 if (!isset($routeOptions[$httpMethod])) {
