@@ -24,6 +24,7 @@ services:
     environment:
       - ALLOW_ORIGIN=${ALLOW_ORIGIN}
       - SERVER_ADMIN=${SERVER_ADMIN}
+      - COOKIE_DOMAIN=${COOKIE_DOMAIN}
       - APP_ENV=${BIBLE_APP_ENV}
       - DB_NAME=${BIBLE_DB_NAME}
       - DB_HOST=${BIBLE_DB_HOST}

@@ -13,4 +13,8 @@ if [ ! -z "${REDIS_SERVER}" ]; then
     sed -i "s|php_value\[session.save_path\]    = /var/lib/php/session|php_value\[session.save_path\]    = ${REDIS_SERVER}|g" /etc/php-fpm.d/www.conf
 fi
 
+if [ ! -z "{$COOKIE_DOMAIN}" ]; then
+    sed -i "s|session.cookie_domain =|session.cookie_domain = ${COOKIE_DOMAIN}|g" /etc/php.ini
+fi
+
 exec "$@"
