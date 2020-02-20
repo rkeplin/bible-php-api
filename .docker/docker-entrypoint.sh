@@ -3,6 +3,7 @@ set -e
 
 if [ ! -z "${ALLOW_ORIGIN}" ]; then
     sed -i "s|Access-Control-Allow-Origin \"\*\"|Access-Control-Allow-Origin \"${ALLOW_ORIGIN}\"|g" /var/www/html/public/.htaccess
+    sed -i "s|Access-Control-Allow-Origin \"\http://bible-ui.rkeplin.local\"|Access-Control-Allow-Origin \"${ALLOW_ORIGIN}\"|g" /var/www/html/public/.htaccess
 fi
 
 if [ ! -z "${REDIS_SERVER}" ]; then
