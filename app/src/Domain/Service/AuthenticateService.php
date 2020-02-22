@@ -48,6 +48,8 @@ class AuthenticateService
             $exception->setDescription('Invalid request');
             $exception->setErrors($errors);
 
+            $this->getSessionService()->destroy();
+
             throw $exception;
         }
 
@@ -62,6 +64,8 @@ class AuthenticateService
                 'password' => 'Invalid credentials.'
             ));
 
+            $this->getSessionService()->destroy();
+
             throw $exception;
         }
 
@@ -71,6 +75,8 @@ class AuthenticateService
             $exception->setErrors(array(
                 'password' => 'Invalid credentials.'
             ));
+
+            $this->getSessionService()->destroy();
 
             throw $exception;
         }
