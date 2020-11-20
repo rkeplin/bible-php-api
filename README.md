@@ -1,5 +1,5 @@
 # Bible PHP API
-[![Build Status](https://travis-ci.org/rkeplin/bible-php-api.svg?branch=master)](https://travis-ci.org/rkeplin/bible-php-api)
+[![Build Status](https://travis-ci.com/rkeplin/bible-php-api.svg?branch=master)](https://travis-ci.com/rkeplin/bible-php-api)
 [![codecov](https://codecov.io/gh/rkeplin/bible-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/rkeplin/bible-php-api)
 
 Bible PHP API is an open source REST API.  It contains multiple translations of The Holy Bible, as well as cross-references. 
