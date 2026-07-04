@@ -2,8 +2,8 @@
 set -e
 
 if [ ! -z "${ALLOW_ORIGIN}" ]; then
-    sed -i "s|Access-Control-Allow-Origin \"\*\"|Access-Control-Allow-Origin \"${ALLOW_ORIGIN}\"|g" /var/www/html/public/.htaccess
-    sed -i "s|Access-Control-Allow-Origin \"\http://bible-ui.rkeplin.local\"|Access-Control-Allow-Origin \"${ALLOW_ORIGIN}\"|g" /var/www/html/public/.htaccess
+    ORIGIN_REGEX=$(echo "${ALLOW_ORIGIN}" | sed -e 's/[.]/\\\\./g' -e 's/ *, */|/g')
+    sed -i "s#^SetEnvIf Origin \".*\" CORS_ALLOW_ORIGIN=\$0#SetEnvIf Origin \"^(${ORIGIN_REGEX})\$\" CORS_ALLOW_ORIGIN=\$0#" /var/www/html/public/.htaccess
 fi
 
 if [ ! -z "${REDIS_SERVER}" ]; then

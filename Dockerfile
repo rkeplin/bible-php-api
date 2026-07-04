@@ -5,7 +5,7 @@ RUN dnf -y update \
  && dnf -y install php-pear php-devel curl make \
  && dnf clean all
 
-RUN pecl install mongodb
+RUN pecl install mongodb-1.9.2
 RUN echo "extension=mongodb.so" > /etc/php.d/30-mongodb.ini
 
 RUN curl -sS https://getcomposer.org/installer | php

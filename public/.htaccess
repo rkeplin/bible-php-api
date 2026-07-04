@@ -1,6 +1,7 @@
 AddDefaultCharset UTF-8
 
-Header set Access-Control-Allow-Origin "http://bible-ui.rkeplin.local"
+SetEnvIf Origin "^http://bible-ui\.rkeplin\.local$" CORS_ALLOW_ORIGIN=$0
+Header always set Access-Control-Allow-Origin %{CORS_ALLOW_ORIGIN}e env=CORS_ALLOW_ORIGIN
 Header set Access-Control-Allow-Credentials true
 Header set Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Cache-Control"
 Header add Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
