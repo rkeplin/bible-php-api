@@ -71,6 +71,7 @@ $translations = array(
     't_kjv' => 'kjv',
     't_niv' => 'niv',
     't_nlt' => 'nlt',
+    't_nlt_2015' => 'nlt_2015',
     't_wbt' => 'wbt',
     't_web' => 'web',
     't_ylt' => 'ylt'

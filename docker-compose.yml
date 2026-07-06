@@ -70,7 +70,7 @@ services:
       - net1
 
   bible-es:
-    image: rkeplin/bible-es:v2
+    image: rkeplin/bible-es:v3
     restart: always
     environment:
       - "discovery.type=single-node"

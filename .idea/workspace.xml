@@ -3,11 +3,16 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
+  <component name="BackgroundAgentGlobalSettings">
+    <option name="selectedModelId" value="claude-sonnet-4-6" />
+    <option name="selectedProviderName" value="Anthropic" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="aa4ebb54-2a06-48b1-82a7-1af5f84869b4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.docker/docker-entrypoint.sh" beforeDir="false" afterPath="$PROJECT_DIR$/.docker/docker-entrypoint.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/createIndices.php" beforeDir="false" afterPath="$PROJECT_DIR$/bin/createIndices.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,6 +41,65 @@
   <component name="McpProjectServerCommands">
     <commands />
     <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.0002708909843916" />
+      <entry key="MS500" value="1.1939997999306344" />
+      <entry key="S2" value="1.8942657192980217" />
+      <entry key="S5" value="2.6825582025974257" />
+      <entry key="S10" value="3.2358400388367596" />
+      <entry key="S30" value="7.0873580537193845" />
+      <entry key="S60" value="17.716168960123028" />
+      <entry key="M2" value="54.09300879580094" />
+      <entry key="M5" value="167.47880375449316" />
+      <entry key="M10" value="260.57900740993466" />
+      <entry key="M15" value="303.5992166253536" />
+      <entry key="M30" value="354.56652006865477" />
+      <entry key="H1" value="383.49412648650804" />
+      <entry key="H2" value="398.9104942131849" />
+      <entry key="H4" value="406.8692488044027" />
+      <entry key="D1" value="413.63276967140865" />
+      <entry key="W1" value="414.8043828079033" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="0.0406838636690849" />
+      <entry key="MS500" value="0.6383820039519824" />
+      <entry key="S2" value="1.6147319220456366" />
+      <entry key="S5" value="2.504163235624763" />
+      <entry key="S10" value="3.1233283679777815" />
+      <entry key="S30" value="7.042197735216076" />
+      <entry key="S60" value="17.69202737342083" />
+      <entry key="M2" value="54.07981849972104" />
+      <entry key="M5" value="167.47240335371106" />
+      <entry key="M10" value="260.5753608044304" />
+      <entry key="M15" value="303.59664887544653" />
+      <entry key="M30" value="354.5651554226381" />
+      <entry key="H1" value="383.493421276304" />
+      <entry key="H2" value="398.9101355135785" />
+      <entry key="H4" value="406.86906788194983" />
+      <entry key="D1" value="413.6327392949631" />
+      <entry key="W1" value="414.80437846290096" />
+    </decayedShown>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/usr/local/Cellar/php/8.2.11/bin/php">
     <include_path>
@@ -102,7 +166,8 @@
       <workItem from="1783127023350" duration="598000" />
       <workItem from="1783193959240" duration="16000" />
       <workItem from="1783197022440" duration="386000" />
-      <workItem from="1783203341379" duration="598000" />
+      <workItem from="1783203341379" duration="658000" />
+      <workItem from="1783289967764" duration="5908000" />
     </task>
     <servers />
   </component>
