@@ -1,18 +1,6 @@
 version: '3'
 services:
-  bible-ui:
-    image: rkeplin/bible-angularjs-ui:latest
-    restart: always
-    ports:
-      - 8082:80
-    environment:
-      - URL=${URL}
-      - API_URL=${API_URL}
-    networks:
-      - net1
-
   php-api:
-    # image: rkeplin/bible-php-api:latest
     build: .
     restart: always
     ports:
@@ -22,59 +10,34 @@ services:
       - mongo
       - redis
     environment:
-      - ALLOW_ORIGIN=${ALLOW_ORIGIN}
-      - SERVER_ADMIN=${SERVER_ADMIN}
-      - COOKIE_DOMAIN=${COOKIE_DOMAIN}
-      - APP_ENV=${BIBLE_APP_ENV}
-      - DB_NAME=${BIBLE_DB_NAME}
-      - DB_HOST=${BIBLE_DB_HOST}
-      - DB_USER=${BIBLE_DB_USER}
-      - DB_PASS=${BIBLE_DB_PASS}
-      - REDIS_SERVER=${REDIS_SERVER}
+      - ALLOW_ORIGIN=${ALLOW_ORIGIN:-http://localhost:3000}
+      - SERVER_ADMIN=${SERVER_ADMIN:-admin@example.com}
+      - COOKIE_DOMAIN=${COOKIE_DOMAIN:-localhost}
+      - APP_ENV=${BIBLE_APP_ENV:-development}
+      - DB_NAME=${BIBLE_DB_NAME:-bible}
+      - DB_HOST=bible-db
+      - DB_USER=${BIBLE_DB_USER:-bible}
+      - DB_PASS=${BIBLE_DB_PASS:-changeme}
+      - REDIS_SERVER=tcp://redis:6379
       - MONGO_HOST=mongo
-      - MONGO_DB=${MONGO_DB}
-      - MONGO_USER=${MONGO_USER}
-      - MONGO_PASS=${MONGO_PASS}
+      - MONGO_DB=${MONGO_DB:-app}
+      - MONGO_USER=${MONGO_USER:-bible}
+      - MONGO_PASS=${MONGO_PASS:-changeme}
     volumes:
       - .:/var/www/html
     networks:
       - net1
 
-  go-api:
-    image: rkeplin/bible-go-api:latest
-    ports:
-      - 8084:3000
-    environment:
-      - ES_URL=${ES_URL}
-      - DB_NAME=${BIBLE_DB_NAME}
-      - DB_HOST=${BIBLE_DB_HOST}
-      - DB_USER=${BIBLE_DB_USER}
-      - DB_PASS=${BIBLE_DB_PASS}
-    depends_on:
-      - bible-db
-      - bible-es
-    networks:
-      - net1
-
   bible-db:
-    image: rkeplin/bible-mariadb:latest
+    image: rkeplin/bible-mariadb:v2
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${BIBLE_DB_ROOT_PASS}
-      - MYSQL_USER=${BIBLE_DB_USER}
-      - MYSQL_PASSWORD=${BIBLE_DB_PASS}
-      - MYSQL_DATABASE=${BIBLE_DB_NAME}
+      - MYSQL_ROOT_PASSWORD=${BIBLE_DB_ROOT_PASS:-changeme}
+      - MYSQL_USER=${BIBLE_DB_USER:-bible}
+      - MYSQL_PASSWORD=${BIBLE_DB_PASS:-changeme}
+      - MYSQL_DATABASE=${BIBLE_DB_NAME:-bible}
     volumes:
       - bible-db:/var/lib/mysql
-    networks:
-      - net1
-
-  bible-es:
-    image: rkeplin/bible-es:v3
-    restart: always
-    environment:
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     networks:
       - net1
 
@@ -84,9 +47,9 @@ services:
     ports:
       - 27017:27017
     environment:
-      - MONGO_INITDB_DATABASE=${MONGO_DB}
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
+      - MONGO_INITDB_DATABASE=${MONGO_DB:-app}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER:-bible}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS:-changeme}
     volumes:
       - mongo-db:/data/db
     networks:
@@ -101,7 +64,6 @@ services:
 volumes:
   bible-db:
   mongo-db:
-  redis:
 
 networks:
   net1:
