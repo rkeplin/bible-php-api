@@ -2,7 +2,7 @@ NS ?= bible
 
 .PHONY: up down build test
 
-up:
+dev:
 	docker-compose up -d
 
 down:
@@ -12,7 +12,7 @@ build:
 	docker-compose build
 
 test:
-	docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit --coverage-clover=coverage/coverage.xml"
+	docker-compose exec -e XDEBUG_MODE=coverage php-api sh -c "cd tests && /usr/local/bin/phpunit --coverage-clover=coverage/coverage.xml"
 
 push:
 	bin/push.sh

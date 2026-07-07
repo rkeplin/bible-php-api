@@ -3,7 +3,7 @@ namespace Domain\Mapper;
 
 use Core\Domain\Mapper\AbstractMongoMapper;
 use Core\Http\HttpBadRequestException;
-use Datetime;
+use MongoDB\BSON\UTCDateTime;
 
 /**
  * Class UserMapper
@@ -72,7 +72,7 @@ class UserMapper extends AbstractMongoMapper
         $collection->insertOne(array(
             'email' => filter_var($data['email'], FILTER_SANITIZE_EMAIL),
             'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-            'dateRegistered' => new DateTime(),
+            'dateRegistered' => new UTCDateTime(),
         ));
 
         return $data;
@@ -92,7 +92,7 @@ class UserMapper extends AbstractMongoMapper
             'id' => (string) $result['_id'],
             'email' => $result['email'],
             'password' => $result['password'],
-            'dateRegistered' => date('Y-m-d H:i:s', strtotime($result['dateRegistered']->date))
+            'dateRegistered' => $result['dateRegistered']->toDateTime()->format('Y-m-d H:i:s')
         );
     }
 }

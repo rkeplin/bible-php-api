@@ -16,7 +16,7 @@ class TextControllerTest extends TestCase
 
         $mapper = $this->getMockBuilder('\Domain\Mapper\TextMapper')
             ->disableOriginalConstructor()
-            ->setMethods(array('setTable', 'findOneById'))
+            ->onlyMethods(array('setTable', 'findOneById'))
             ->getMock();
 
         $mapper->expects($this->once())

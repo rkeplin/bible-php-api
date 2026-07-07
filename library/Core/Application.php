@@ -36,6 +36,8 @@ class Application
         if ($config['environment'] !== 'production') {
             error_reporting(E_ALL);
             ini_set('display_errors', 1);
+        } else {
+            ini_set('display_errors', 0);
         }
 
         if(isset($config['mysql'], $config['mysql']['db_host'])) {

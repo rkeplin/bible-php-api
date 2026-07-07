@@ -37,7 +37,7 @@ abstract class AbstractMapper
      * @throws Exception
      * @return void
      **/
-    public function __construct(PDO $db = null)
+    public function __construct(?PDO $db = null)
     {
         if(null === $db) {
             $db = self::$_defaultDb;
@@ -111,15 +111,8 @@ abstract class AbstractMapper
 
          $stmt = $this->_db->prepare($sql);
          $stmt->execute();
-         $rows = $stmt->fetchAll();
 
-         $collection = array();
-
-         foreach($rows as $row) {
-             $collection[] = $row;
-         }
-
-         return $collection;
+         return $stmt->fetchAll();
      }
 
     /**

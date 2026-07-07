@@ -42,7 +42,7 @@ services:
       - net1
 
   mongo:
-    image: mongo:4.2.2-bionic
+    image: mongo:7.0
     restart: always
     ports:
       - 27017:27017
@@ -56,7 +56,7 @@ services:
       - net1
 
   redis:
-    image: redis:5.0.7
+    image: redis:7.4
     restart: always
     networks:
       - net1

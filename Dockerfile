@@ -1,27 +1,43 @@
-FROM fedora:30
+FROM fedora:42
 
 RUN dnf -y update \
- && dnf -y install httpd php php-common php-pdo php-hash php-mbstring php-apc php-gd php-mysqlnd php-json php-dom php-xdebug php-redis mysql npm at wget \
- && dnf -y install php-pear php-devel curl make \
+ && dnf -y install \
+    httpd \
+    php \
+    php-fpm \
+    php-common \
+    php-pdo \
+    php-mbstring \
+    php-pecl-apcu \
+    php-gd \
+    php-mysqlnd \
+    php-dom \
+    php-xdebug \
+    php-pecl-redis \
+    php-pecl-mongodb \
+    mysql \
+    npm \
+    at \
+    wget \
+    curl \
+    unzip \
+    git \
  && dnf clean all
-
-RUN pecl install mongodb-1.9.2
-RUN echo "extension=mongodb.so" > /etc/php.d/30-mongodb.ini
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
 
-RUN wget https://phar.phpunit.de/phpunit-8.0.5.phar
-RUN chmod +x phpunit-8.0.5.phar
-RUN mv phpunit-8.0.5.phar /usr/local/bin/phpunit
+RUN wget https://phar.phpunit.de/phpunit-11.phar
+RUN chmod +x phpunit-11.phar
+RUN mv phpunit-11.phar /usr/local/bin/phpunit
 
 RUN sed -i 's/;date.timezone =/date.timezone = "America\/New_York"/g' /etc/php.ini
 
 RUN echo "ServerName localhost" >> /etc/httpd/conf/httpd.conf
 RUN sed -i 's/LogFormat "%h/LogFormat "%{X-Forwarded-For}i - %h/g' /etc/httpd/conf/httpd.conf
 
-RUN mkdir /run/php-fpm
+RUN mkdir -p /run/php-fpm
 RUN chown -R apache:apache /run/php-fpm
 
 RUN ln -sf /dev/stdout /var/log/httpd/access_log \

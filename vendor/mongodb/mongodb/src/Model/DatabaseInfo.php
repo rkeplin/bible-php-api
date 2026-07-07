@@ -1,12 +1,12 @@
 <?php
 /*
- * Copyright 2015-2017 MongoDB, Inc.
+ * Copyright 2015-present MongoDB, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *   https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,6 +19,8 @@ namespace MongoDB\Model;
 
 use ArrayAccess;
 use MongoDB\Exception\BadMethodCallException;
+use ReturnTypeWillChange;
+
 use function array_key_exists;
 
 /**
@@ -27,27 +29,21 @@ use function array_key_exists;
  * This class models the database information returned by the listDatabases
  * command. It provides methods to access common database properties.
  *
- * @api
  * @see \MongoDB\Client::listDatabases()
- * @see http://docs.mongodb.org/manual/reference/command/listDatabases/
+ * @see https://mongodb.com/docs/manual/reference/command/listDatabases/
+ * @template-implements ArrayAccess<string, mixed>
  */
 class DatabaseInfo implements ArrayAccess
 {
-    /** @var array */
-    private $info;
-
-    /**
-     * @param array $info Database info
-     */
-    public function __construct(array $info)
+    /** @param array $info Database info */
+    public function __construct(private array $info)
     {
-        $this->info = $info;
     }
 
     /**
-     * Return the collection info as an array.
+     * Return the database info as an array.
      *
-     * @see http://php.net/oop5.magic#language.oop5.magic.debuginfo
+     * @see https://php.net/oop5.magic#language.oop5.magic.debuginfo
      * @return array
      */
     public function __debugInfo()
@@ -73,7 +69,7 @@ class DatabaseInfo implements ArrayAccess
     public function getSizeOnDisk()
     {
         /* The MongoDB server might return this number as an integer or float */
-        return (integer) $this->info['sizeOnDisk'];
+        return (int) $this->info['sizeOnDisk'];
     }
 
     /**
@@ -83,42 +79,44 @@ class DatabaseInfo implements ArrayAccess
      */
     public function isEmpty()
     {
-        return (boolean) $this->info['empty'];
+        return (bool) $this->info['empty'];
     }
 
     /**
      * Check whether a field exists in the database information.
      *
-     * @see http://php.net/arrayaccess.offsetexists
-     * @param mixed $key
+     * @see https://php.net/arrayaccess.offsetexists
      * @return boolean
+     * @psalm-param array-key $offset
      */
-    public function offsetExists($key)
+    #[ReturnTypeWillChange]
+    public function offsetExists(mixed $offset)
     {
-        return array_key_exists($key, $this->info);
+        return array_key_exists($offset, $this->info);
     }
 
     /**
      * Return the field's value from the database information.
      *
-     * @see http://php.net/arrayaccess.offsetget
-     * @param mixed $key
+     * @see https://php.net/arrayaccess.offsetget
      * @return mixed
+     * @psalm-param array-key $offset
      */
-    public function offsetGet($key)
+    #[ReturnTypeWillChange]
+    public function offsetGet(mixed $offset)
     {
-        return $this->info[$key];
+        return $this->info[$offset];
     }
 
     /**
      * Not supported.
      *
-     * @see http://php.net/arrayaccess.offsetset
-     * @param mixed $key
-     * @param mixed $value
+     * @see https://php.net/arrayaccess.offsetset
      * @throws BadMethodCallException
+     * @return void
      */
-    public function offsetSet($key, $value)
+    #[ReturnTypeWillChange]
+    public function offsetSet(mixed $offset, mixed $value)
     {
         throw BadMethodCallException::classIsImmutable(self::class);
     }
@@ -126,11 +124,12 @@ class DatabaseInfo implements ArrayAccess
     /**
      * Not supported.
      *
-     * @see http://php.net/arrayaccess.offsetunset
-     * @param mixed $key
+     * @see https://php.net/arrayaccess.offsetunset
      * @throws BadMethodCallException
+     * @return void
      */
-    public function offsetUnset($key)
+    #[ReturnTypeWillChange]
+    public function offsetUnset(mixed $offset)
     {
         throw BadMethodCallException::classIsImmutable(self::class);
     }

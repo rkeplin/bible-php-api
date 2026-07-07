@@ -4,9 +4,9 @@ namespace Domain\Mapper;
 use Core\Domain\Mapper\AbstractMongoMapper;
 use Core\Http\HttpBadRequestException;
 use Core\Http\HttpNotFoundException;
-use Datetime;
 use Domain\Service\TranslationFactory;
 use MongoDB\BSON\ObjectId;
+use MongoDB\BSON\UTCDateTime;
 
 /**
  * Class ListMapper
@@ -54,9 +54,7 @@ class ListMapper extends AbstractMongoMapper
 
         if (!isset($data['name'])) {
             $errors['name'] = 'List name is required.';
-        }
-
-        if (!preg_match(self::LIST_NAME_REGEX, $data['name'])) {
+        } elseif (!preg_match(self::LIST_NAME_REGEX, $data['name'])) {
             $errors['name'] = 'Invalid list name.';
         }
 
@@ -91,9 +89,9 @@ class ListMapper extends AbstractMongoMapper
                 '_id' => new ObjectId($user['id']),
                 'email' => $user['email']
             ),
-            'name' => filter_var($data['name'], FILTER_SANITIZE_STRING),
-            'dateAdded' => new DateTime(),
-            'dateUpdated' => new DateTime()
+            'name' => strip_tags(trim($data['name'])),
+            'dateAdded' => new UTCDateTime(),
+            'dateUpdated' => new UTCDateTime()
         ));
 
         if (!$result->getInsertedCount()) {
@@ -122,9 +120,7 @@ class ListMapper extends AbstractMongoMapper
 
         if (!isset($data['name'])) {
             $errors['name'] = 'List name is required.';
-        }
-
-        if (!preg_match(self::LIST_NAME_REGEX, $data['name'])) {
+        } elseif (!preg_match(self::LIST_NAME_REGEX, $data['name'])) {
             $errors['name'] = 'Invalid list name.';
         }
 
@@ -166,8 +162,8 @@ class ListMapper extends AbstractMongoMapper
             '_id' => new ObjectId($id)
         ), array(
             '$set' => array(
-                'name' => filter_var($data['name'], FILTER_SANITIZE_STRING),
-                'dateUpdated' => new DateTime()
+                'name' => strip_tags(trim($data['name'])),
+                'dateUpdated' => new UTCDateTime()
             )
         ));
 
@@ -316,7 +312,7 @@ class ListMapper extends AbstractMongoMapper
             'user._id' => new ObjectId($userId),
             'list._id' => new ObjectId($listId),
             'text.id' => (int) $verseId,
-            'translation' => strtoupper($translation)
+            'translation' => strtoupper($translation ?? '')
         ));
 
         if ($count > 0) {
@@ -335,8 +331,8 @@ class ListMapper extends AbstractMongoMapper
                 '_id' => new ObjectId($listId)
             ),
             'text' => $textEntity->toArray(),
-            'translation' => strtoupper($translation),
-            'dateAdded' => new DateTime()
+            'translation' => strtoupper($translation ?? ''),
+            'dateAdded' => new UTCDateTime()
         ));
 
         if (!$result->getInsertedCount()) {
@@ -421,7 +417,7 @@ class ListMapper extends AbstractMongoMapper
             'user._id' => new ObjectId($userId),
             'list._id' => new ObjectId($listId),
             'text.id' => (int) $verseId,
-            'translation' => strtoupper($translation)
+            'translation' => strtoupper($translation ?? '')
         ));
     }
 
@@ -440,11 +436,11 @@ class ListMapper extends AbstractMongoMapper
                 'email' => $item['user']['email']
             ),
             'name' => $item['name'],
-            'dateAdded' => date('Y-m-d H:i:s', strtotime($item['dateAdded']->date))
+            'dateAdded' => $item['dateAdded']->toDateTime()->format('Y-m-d H:i:s')
         );
 
         if (isset($item['dateUpdated'])) {
-            $formatted['dateUpdated'] = date('Y-m-d H:i:s', strtotime($item['dateUpdated']->date));
+            $formatted['dateUpdated'] = $item['dateUpdated']->toDateTime()->format('Y-m-d H:i:s');
         }
 
         return $formatted;
@@ -469,7 +465,7 @@ class ListMapper extends AbstractMongoMapper
             ),
             'text' => $item['text'],
             'translation' => strtoupper($item['translation']),
-            'dateAdded' => date('Y-m-d H:i:s', strtotime($item['dateAdded']->date))
+            'dateAdded' => $item['dateAdded']->toDateTime()->format('Y-m-d H:i:s')
         );
     }
 

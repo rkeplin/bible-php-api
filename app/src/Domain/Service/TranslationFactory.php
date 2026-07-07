@@ -21,7 +21,7 @@ class TranslationFactory
     {
         $table = self::$_defaultTable;
 
-        $id = strtolower($id);
+        $id = strtolower($id ?? '');
 
         switch ($id) {
             case 1:
@@ -73,6 +73,11 @@ class TranslationFactory
             case 't_nlt':
             case 'nlt':
                 $table = 't_nlt';
+                break;
+            case 11:
+            case 't_nlt_2015':
+            case 'nlt2015':
+                $table = 't_nlt_2015';
                 break;
 
         }

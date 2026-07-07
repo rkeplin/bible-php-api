@@ -10,7 +10,23 @@
   <component name="ChangeListManager">
     <list default="true" id="aa4ebb54-2a06-48b1-82a7-1af5f84869b4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/Domain/Mapper/ListMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Domain/Mapper/ListMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/Domain/Mapper/UserMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Domain/Mapper/UserMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/Domain/Service/TranslationFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/Domain/Service/TranslationFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/k8s/mongo.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/k8s/mongo.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/infra/k8s/redis.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/infra/k8s/redis.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/Core/Application.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/Core/Application.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/Core/Domain/Entity/Collection.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/Core/Domain/Entity/Collection.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/Core/Domain/Mapper/AbstractMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/Core/Domain/Mapper/AbstractMapper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/Core/Domain/Mapper/AbstractMongoMapper.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/Core/Domain/Mapper/AbstractMongoMapper.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/integration/Controller/TranslationControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/integration/Controller/TranslationControllerTest.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/tests/phpunit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/Controller/TextControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/Controller/TextControllerTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,12 +43,16 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="88" />
+    <option name="cachedIndexableFilesCount" value="92" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -42,23 +62,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.7268101957271558" />
-      <entry key="MS500" value="4.12858303760531" />
-      <entry key="S2" value="7.419502693610298" />
-      <entry key="S5" value="12.792048292645132" />
-      <entry key="S10" value="17.04901805167186" />
-      <entry key="S30" value="22.304467718027976" />
-      <entry key="S60" value="32.628458912937504" />
-      <entry key="M2" value="61.09934492409999" />
-      <entry key="M5" value="136.82313830440276" />
-      <entry key="M10" value="225.40576883028032" />
-      <entry key="M15" value="302.54105929416886" />
-      <entry key="M30" value="476.7369776694904" />
-      <entry key="H1" value="649.6039716222651" />
-      <entry key="H2" value="775.3558143736585" />
-      <entry key="H4" value="851.7448562648106" />
-      <entry key="D1" value="923.6351367098439" />
-      <entry key="W1" value="936.7839321048401" />
+      <entry key="MS100" value="1.2203867685790297" />
+      <entry key="MS500" value="3.7352007476404263" />
+      <entry key="S2" value="7.693786286794102" />
+      <entry key="S5" value="13.276057347028361" />
+      <entry key="S10" value="17.701626978358" />
+      <entry key="S30" value="23.151934907400125" />
+      <entry key="S60" value="33.51669994418319" />
+      <entry key="M2" value="61.99461645698062" />
+      <entry key="M5" value="137.72928032467036" />
+      <entry key="M10" value="226.32844360677706" />
+      <entry key="M15" value="303.4718643990976" />
+      <entry key="M30" value="477.68245672014064" />
+      <entry key="H1" value="650.5668253135581" />
+      <entry key="H2" value="776.3336454681029" />
+      <entry key="H4" value="852.7326796705954" />
+      <entry key="D1" value="924.6329359730908" />
+      <entry key="W1" value="937.7836132379053" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -80,23 +100,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.6612158485784985" />
-      <entry key="MS500" value="4.098202756314848" />
-      <entry key="S2" value="7.405231541028905" />
-      <entry key="S5" value="12.780962893382044" />
-      <entry key="S10" value="17.041190157375702" />
-      <entry key="S30" value="22.300975336928385" />
-      <entry key="S60" value="32.6261466795632" />
-      <entry key="M2" value="61.09744783476546" />
-      <entry key="M5" value="136.8215157293472" />
-      <entry key="M10" value="225.40433355582186" />
-      <entry key="M15" value="302.5396820650955" />
-      <entry key="M30" value="476.7357923100293" />
-      <entry key="H1" value="649.6031312542452" />
-      <entry key="H2" value="775.3553045594273" />
-      <entry key="H4" value="851.7445742478295" />
-      <entry key="D1" value="923.6350854677892" />
-      <entry key="W1" value="936.783924673971" />
+      <entry key="MS100" value="0.3396417063153506" />
+      <entry key="MS500" value="3.377577213218195" />
+      <entry key="S2" value="7.583099022946953" />
+      <entry key="S5" value="13.225082246890562" />
+      <entry key="S10" value="17.673582568854457" />
+      <entry key="S30" value="23.14162774327838" />
+      <entry key="S60" value="33.51097043154864" />
+      <entry key="M2" value="61.991008550811785" />
+      <entry key="M5" value="137.72697288235273" />
+      <entry key="M10" value="226.32666577568847" />
+      <entry key="M15" value="303.47025877260273" />
+      <entry key="M30" value="477.6811571334957" />
+      <entry key="H1" value="650.5659278105855" />
+      <entry key="H2" value="776.3331070765358" />
+      <entry key="H4" value="852.7323833615877" />
+      <entry key="D1" value="924.6328823484675" />
+      <entry key="W1" value="937.7836054666541" />
     </decayedShown>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/usr/local/Cellar/php/8.2.11/bin/php">
@@ -170,6 +190,8 @@
       <workItem from="1783301181850" duration="913000" />
       <workItem from="1783302110717" duration="2000" />
       <workItem from="1783335636219" duration="101000" />
+      <workItem from="1783383804409" duration="887000" />
+      <workItem from="1783426857120" duration="2267000" />
     </task>
     <servers />
   </component>

@@ -37,7 +37,7 @@ abstract class AbstractMongoMapper
      * @throws Exception
      * @return void
      **/
-    public function __construct(Client $client = null)
+    public function __construct(?Client $client = null)
     {
         if(null === $client) {
             $client = self::$_defaultClient;
