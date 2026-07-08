@@ -1,108 +1,209 @@
 # Bible PHP API
-[![Build Status](https://travis-ci.com/rkeplin/bible-php-api.svg?branch=master)](https://travis-ci.com/rkeplin/bible-php-api)
-[![codecov](https://codecov.io/gh/rkeplin/bible-php-api/branch/master/graph/badge.svg)](https://codecov.io/gh/rkeplin/bible-php-api)
 
-Bible PHP API is an open source REST API.  It contains multiple translations of The Holy Bible, as well as cross-references. 
+[![Unit Tests](https://github.com/rkeplin/bible-php-api/actions/workflows/tests.yml/badge.svg)](https://github.com/rkeplin/bible-php-api/actions/workflows/tests.yml)
+
+Bible PHP API is an open source REST API containing multiple translations of The Holy Bible, as well as cross-references.
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY.
 
 ### Live Demo
 A live demo of this application can be viewed [here](https://bible-php-api.rkeplin.com/v1/books/1/chapters/1).
 
-### Getting Everything Running
-```bash
-git clone https://www.github.com/rkeplin/bible-php-api
-cd bible-php-api && docker-compose up -d
-```
-Note: Upon first start, the volume containing the MySQL data may take several seconds to load.
+---
 
-You should then be able to access [http://localhost:8083](http://localhost:8083) for the REST API and [http://localhost:8082](http://localhost:8082) for the UI (AngularJS).
+## Local Development
 
-### API Specifications
-#### List of available translations
-```bash
-GET http://localhost:8083/translations
-GET http://localhost:8083/translations/[TranslationID]
-```
+### Prerequisites
+- Docker
+- Docker Compose
 
-#### List of Genres
+### Running Locally
+
 ```bash
-GET http://localhost:8083/genres
-GET http://localhost:8083/genres/[GenreID]
+git clone https://github.com/rkeplin/bible-php-api
+cd bible-php-api
+docker-compose up -d
 ```
 
-#### Content
-```bash
-GET http://localhost:8083/books
-GET http://localhost:8083/books/[BookID]
-GET http://localhost:8083/books/[BookID]/chapters/[ChapterID]
-GET http://localhost:8083/books/[BookID]/chapters/[ChapterID]
-GET http://localhost:8083/books/[BookID]/chapters/[ChapterID]/[VerseID]
-```
-Note: In order to get content for a specific translation, supply `translation` as a Query Parameter.  For example,
-`http://localhost:8083/books/1/chapters/1/1001002?translation=ASV`
+> Upon first start, the MariaDB volume may take several seconds to initialize.
 
-#### Cross References
-```bash
-GET http://localhost:8083/verse/[VerseID]/relations 
-```
+The REST API will be available at [http://localhost:8083](http://localhost:8083).
 
-#### Registering
-```bash
-curl -XPOST -H "Content-Type: application/json" -d '{"email":"something@example.com", "password":"something", "passwordConf": "something"}' http://localhost:8083/register
-```
+### Running Unit Tests
 
-#### Authenticating
-```bash
-# Logging in
-curl -XPOST -H "Content-Type: application/json" -d '{"email":"something@example.com", "password":"something"}' http://localhost:8083/authenticate
- 
-# Logging out
-curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/authenticate/logout
- 
-# Getting current user information
-curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/authenticate/me
-```
-
-#### Managing lists
-Registered users may create a list of verses
-```bash
-# Getting my lists
-curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/lists
- 
-# Creating a list
-curl -XPOST -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" -d '{"name": "test list"}' http://localhost:8083/lists
- 
-# Getting a specific list
-curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/[ListID]
- 
-# Updating a specific list 
-curl -XPUT -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" -d '{"name": "test list updated"}' http://localhost:8083/lists/[ListID]
- 
-# Deleting a list
-curl -XDELETE -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/[ListID]
- 
-# Get the verses on a list
-curl -XGET -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" 127.0.0.1:8083/lists/[ListID]/verses
- 
-# Add a verse to a list
-curl -XPUT -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" 127.0.0.1:8083/lists/[ListID]/verses/[VerseID]
- 
-# Remove a verse from a list
-curl -XDELETE -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" 127.0.0.1:8083/lists/[ListID]/verses/[VerseID]
-```
-
-### Running The Test Suite
 ```bash
 make test
 ```
 
-### Related Projects
-* [Bible Go API](https://www.github.com/rkeplin/bible-go-api)
-* [Bible PHP API](https://www.github.com/rkeplin/bible-php-api)
-* [Bible AngularJS UI](https://www.github.com/rkeplin/bible-angularjs-ui)
-* [Bible MariaDB Docker Image](https://www.github.com/rkeplin/bible-mariadb)
+This runs PHPUnit inside the running container with coverage enabled. To run only the unit test suite without coverage:
 
-### Credits
-Data for this application was gathered from the following repositories.
-* [scrollmaper/bible_database](https://github.com/scrollmapper/bible_databases)
-* [honza/bibles](https://github.com/honza/bibles)
+```bash
+docker-compose exec php-api sh -c "cd tests && /usr/local/bin/phpunit --testsuite 'Unit Tests'"
+```
+
+### Stopping Services
+
+```bash
+make down
+```
+
+---
+
+## Deploying to Kubernetes
+
+### Prerequisites
+- `kubectl` configured and pointing at your target cluster
+- A `.env` file at the project root with the required secrets (see `.env.example`)
+
+### Required `.env` Variables
+
+```
+BIBLE_DB_NAME=bible
+BIBLE_DB_USER=bible
+BIBLE_DB_PASS=changeme
+MONGO_DB=app
+MONGO_USER=bible
+MONGO_PASS=changeme
+```
+
+### Deploy
+
+```bash
+# Create the namespace, apply secrets, and deploy all resources
+make k8s-deploy
+```
+
+This runs the following steps in order:
+1. Creates the `bible` namespace (`infra/k8s/namespace.yaml`)
+2. Creates/updates the `bible-env` secret from your `.env` file
+3. Applies Mongo, Redis, Deployment/Service, and Ingress manifests
+
+### Check Status
+
+```bash
+make k8s-status
+```
+
+### Tear Down
+
+```bash
+make k8s-delete
+```
+
+### Pushing a New Image
+
+Build and push the Docker image to Docker Hub before deploying:
+
+```bash
+make push
+```
+
+The deployment uses `rkeplin/bible-php-api:latest`. After pushing, restart the deployment to pull the new image:
+
+```bash
+kubectl rollout restart deployment/bible-php-api -n bible
+```
+
+---
+
+## API Reference
+
+### Translations
+
+```bash
+GET /translations
+GET /translations/{translationId}
+```
+
+### Genres
+
+```bash
+GET /genres
+GET /genres/{genreId}
+```
+
+### Books & Chapters
+
+```bash
+GET /books
+GET /books/{bookId}
+GET /books/{bookId}/chapters/{chapterId}
+GET /books/{bookId}/chapters/{chapterId}/{verseId}
+```
+
+To retrieve content for a specific translation, pass `translation` as a query parameter:
+
+```bash
+GET /books/1/chapters/1/1001002?translation=ASV
+```
+
+### Cross References
+
+```bash
+GET /verse/{verseId}/relations
+```
+
+### Authentication
+
+```bash
+# Register
+curl -XPOST -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"secret","passwordConf":"secret"}' \
+  http://localhost:8083/register
+
+# Login
+curl -XPOST -H "Content-Type: application/json" \
+  -d '{"email":"user@example.com","password":"secret"}' \
+  http://localhost:8083/authenticate
+
+# Logout
+curl -XGET -H "Cookie: token=[TOKEN]" http://localhost:8083/authenticate/logout
+
+# Current user
+curl -XGET -H "Cookie: token=[TOKEN]" http://localhost:8083/authenticate/me
+```
+
+### Verse Lists
+
+Registered users can manage personal lists of verses.
+
+```bash
+# List all lists
+curl -XGET -H "Cookie: token=[TOKEN]" http://localhost:8083/lists
+
+# Create a list
+curl -XPOST -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" \
+  -d '{"name":"My List"}' http://localhost:8083/lists
+
+# Get a list
+curl -XGET -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/{listId}
+
+# Update a list
+curl -XPUT -H "Content-Type: application/json" -H "Cookie: token=[TOKEN]" \
+  -d '{"name":"Updated Name"}' http://localhost:8083/lists/{listId}
+
+# Delete a list
+curl -XDELETE -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/{listId}
+
+# Get verses on a list
+curl -XGET -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/{listId}/verses
+
+# Add a verse to a list
+curl -XPUT -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/{listId}/verses/{verseId}
+
+# Remove a verse from a list
+curl -XDELETE -H "Cookie: token=[TOKEN]" http://localhost:8083/lists/{listId}/verses/{verseId}
+```
+
+---
+
+## Related Projects
+
+- [Bible Go API](https://github.com/rkeplin/bible-go-api)
+- [Bible UI (React)](https://github.com/rkeplin/bible-ui)
+- [Bible MariaDB Docker Image](https://github.com/rkeplin/bible-mariadb)
+
+## Credits
+
+Bible data sourced from:
+- [scrollmapper/bible_databases](https://github.com/scrollmapper/bible_databases)
+- [honza/bibles](https://github.com/honza/bibles)
