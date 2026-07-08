@@ -18,4 +18,13 @@ jobs:
         run: sleep 15
 
       - name: Run unit tests
-        run: docker compose exec -T -e XDEBUG_MODE=off php-api sh -c "cd tests && /usr/local/bin/phpunit --testsuite 'Unit Tests'"
+        run: docker compose exec -T -e XDEBUG_MODE=coverage php-api sh -c "cd tests && /usr/local/bin/phpunit --testsuite 'Unit Tests' --coverage-clover=coverage/coverage.xml"
+
+      - name: Copy coverage report from container
+        run: docker compose cp php-api:/var/www/html/tests/coverage/coverage.xml ./coverage.xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
