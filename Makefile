@@ -30,11 +30,9 @@ k8s-deploy: k8s-namespace k8s-secret
 	kubectl apply -f infra/k8s/mongo.yaml
 	kubectl apply -f infra/k8s/redis.yaml
 	kubectl apply -f infra/k8s/deployment.yaml
-	kubectl apply -f infra/k8s/ingress.yaml
 
 .PHONY: k8s-delete
 k8s-delete:
-	-kubectl delete -f infra/k8s/ingress.yaml
 	-kubectl delete -f infra/k8s/deployment.yaml
 	-kubectl delete -f infra/k8s/redis.yaml
 	-kubectl delete -f infra/k8s/mongo.yaml

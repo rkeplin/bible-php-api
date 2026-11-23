@@ -1,4 +1,4 @@
-FROM fedora:43
+FROM fedora:44
 
 RUN dnf -y update \
  && dnf -y install \
@@ -14,7 +14,13 @@ RUN dnf -y update \
     php-dom \
     php-xdebug \
     php-pecl-redis \
-    php-pecl-mongodb \
+    php-devel \
+    php-pear \
+    gcc \
+    make \
+    pkgconf \
+    openssl-devel \
+    cyrus-sasl-devel \
     mysql \
     npm \
     at \
@@ -23,6 +29,9 @@ RUN dnf -y update \
     unzip \
     git \
  && dnf clean all
+
+RUN pecl install mongodb-2.5.8 \
+ && echo "extension=mongodb.so" > /etc/php.d/50-mongodb.ini
 
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
